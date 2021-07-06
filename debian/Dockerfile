@@ -17,6 +17,7 @@ RUN apt-get update \
     && apt-get -y --no-install-recommends install \
         ca-certificates \
         curl \
+        libfcgi-bin \
         unzip \
         php7.4-apcu \
         php7.4-apcu-bc \
@@ -44,8 +45,7 @@ COPY overrides.conf /etc/php/7.4/fpm/pool.d/z-overrides.conf
 # install health check
 RUN curl -L -o "/usr/local/bin/php-fpm-healthcheck" "https://raw.githubusercontent.com/renatomefi/php-fpm-healthcheck/master/php-fpm-healthcheck" \
     && chmod +x "/usr/local/bin/php-fpm-healthcheck"
-HEALTHCHECK --interval=1m --timeout=5s --start-period=5s \
-    CMD /bin/sh /usr/local/bin/php-fpm-healthcheck
+HEALTHCHECK CMD /bin/sh /usr/local/bin/php-fpm-healthcheck
 
 # set stop signal to send
 STOPSIGNAL SIGQUIT

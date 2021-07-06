@@ -8,14 +8,13 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Install selected extensions and other stuff
 RUN apt-get update \
-    && apt-get -y --no-install-recommends install php7.4-mysql \
+    && apt-get -y --no-install-recommends install php7.4-mysql libfcgi-bin \
     && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 # install health check
 RUN curl -L -o "/usr/local/bin/php-fpm-healthcheck" "https://raw.githubusercontent.com/renatomefi/php-fpm-healthcheck/master/php-fpm-healthcheck" \
     && chmod +x "/usr/local/bin/php-fpm-healthcheck"
-HEALTHCHECK --interval=1m --timeout=5s --start-period=5s \
-    CMD /bin/sh /usr/local/bin/php-fpm-healthcheck
+HEALTHCHECK CMD /bin/sh /usr/local/bin/php-fpm-healthcheck
 
 # set hostname
 ENV HOSTNAME phpdockerio

@@ -29,3 +29,7 @@ The comparison script is in the `/compare.php` file, feel free to have a look an
 The benchmark script is located in the `app/benchmark.php` file within each of the images directories.
 
 There is a base version available in the `/data` directory.
+
+## TODO
+
+- Fix healthcheck 
